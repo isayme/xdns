@@ -69,7 +69,7 @@ static int suffixes(unsigned char *pattern, int pattern_len, int *suffix)
    
     return R_OK;
    
-    /* 上面的算法更为优秀，本算法比较通俗 
+    /* Faster ablove code, general below
     suffix[m-1] = m;
     for (i = m-2；i >= 0；--i){
         q = i;
