@@ -10,7 +10,7 @@
 BINS := test
 
 # libs to be created
-LIBS := 
+LIBS := liblog.so libthread.so libdaemon.so libbm.so
 #-----------------------------------------------------------
 
 # compiler tool
@@ -25,7 +25,7 @@ SOFLAGS := -g -DLINUX -shared -fPIC -Iinc
 
 LDFLAGS := -Wl,-rpath,bin,-rpath, \
   -Lbin \
-	-lpthread
+	-lpthread -llog -lthread -ldaemon -lbm
 	
 # vpath indicate the searching path of the according file type
 SRCDIR := src $(shell ls -d src/*)
@@ -57,7 +57,7 @@ lib%.so : %.c
 	mv $@ bin/
 
 % : %.c
-	$(CC) $(CCFLAGS) $(LDFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 	mv $@ bin/
 		
 #-----------------------------------------------------------
@@ -68,7 +68,7 @@ lib%.so : %.c
 #	mv $@ bin/
 
 #bin_example : bin_example.c bin_prerequisite1.c bin_prerequisite2.c
-#	$(CC) $(CCFLAGS) $(LDFLAGS) -o $@ $^
+#	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 #	mv $@ bin/
 #-----------------------------------------------------------
 
