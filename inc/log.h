@@ -50,8 +50,6 @@
 #define TIME_HIDE       ((UINT64)1UL<<TIME_POS)
 
 
-static INT32 log_init();
-
 INT32 PRINTF(UINT64 mode, INT8 *format, ...);
 
 #endif
