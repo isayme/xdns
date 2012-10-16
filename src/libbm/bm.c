@@ -71,7 +71,7 @@ static int suffixes(unsigned char *pattern, int pattern_len, int *suffix)
    
     /* Faster ablove code, general below
     suffix[m-1] = m;
-    for (i = m-2£»i >= 0£»--i){
+    for (i = m-2; i >= 0; --i){
         q = i;
         while (q >= 0 && P[q] == P[m - 1 - i + q])
             --q;
