@@ -50,6 +50,6 @@
 #define TIME_HIDE       ((UINT64)1UL<<TIME_POS)
 
 
-INT32 PRINTF(UINT64 mode, INT8 *format, ...);
+INT32 PRINTF(UINT64 mode, char *format, ...);
 
 #endif

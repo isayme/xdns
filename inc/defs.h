@@ -3,7 +3,8 @@
 
 // define function return value macro
 #define R_ERROR		-1
-#define R_OK		0
+#undef R_OK
+#define R_OK    0
 
 // typedef some data type for global use
 typedef signed char	        INT8;
@@ -21,5 +22,7 @@ typedef unsigned long long  UINT64;
 
 #define  MAX(a,b)	(((a)>(b))?(a):(b))
 #define  MIN(a,b)	(((a)<(b))?(a):(b))
+
+#define _perror() printf("%s : args error.\n", __func__)
 
 #endif
