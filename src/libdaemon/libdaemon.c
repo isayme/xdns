@@ -1,6 +1,6 @@
 ﻿#include <unistd.h>
 #include <stdlib.h>
-#include "daemon.h"
+#include "libdaemon.h"
 
 int daemonize(void)
 {

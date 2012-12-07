@@ -1,4 +1,4 @@
-#include "thread.h"
+#include "libthread.h"
 
 INT32 CS_INIT(CS_T *cs)
 {

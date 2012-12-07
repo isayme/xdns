@@ -11,7 +11,7 @@ BINS := test
 
 # libs to be created
 LIBS := liblog.so libthread.so libdaemon.so libbm.so \
-	liblist.so
+	liblist.so libudp.so
 #-----------------------------------------------------------
 
 # compiler tool
@@ -27,7 +27,7 @@ SOFLAGS := -g -DLINUX -shared -fPIC -Iinc
 LDFLAGS := -Wl,-rpath,bin,-rpath, \
   -Lbin \
 	-lpthread -llog -lthread -ldaemon -lbm \
-	-llist
+	-llist -ludp
 	
 # vpath indicate the searching path of the according file type
 SRCDIR := src $(shell ls -d src/*)
@@ -54,7 +54,7 @@ clean :
 		
 # common rules goes here, if the compiling procedure of your module matches one, 
 # no need to list it in SpecialRules
-lib%.so : %.c
+%.so : %.c
 	$(CC) $(SOFLAGS) -o $@ $^
 	mv $@ bin/
 

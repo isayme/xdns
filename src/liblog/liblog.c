@@ -5,8 +5,8 @@
 #include <string.h>
 
 #include "defs.h"
-#include "log.h"
-#include "thread.h"
+#include "liblog.h"
+#include "libthread.h"
 
 static const UINT8 g_debug_str[8][8] = {
     "TESTS",

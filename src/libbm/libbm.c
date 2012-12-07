@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "bm.h"
+#include "libbm.h"
 
 static int preBmBc(unsigned char *pattern, int pattern_len, int bmBc[])
 {

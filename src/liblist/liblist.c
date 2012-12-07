@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "defs.h"
-#include "list.h"
+#include "liblist.h"
 
 /*
  *  add "new" between "head" and "list"
