@@ -24,7 +24,7 @@ typedef unsigned long long  UINT64;
 #define  MIN(a,b)	(((a)<(b))?(a):(b))
 
 #define _perror() printf("%s : args error.\n", __func__)
-#define dprintf(msg, ...) do{printf("%s[%d] : ", __func__, __LINE__);printf(msg);}while(0)
+#define dprintf(msg...) do{printf("%s[%d] : ", __func__, __LINE__);printf(msg);}while(0)
 
 #define LOG(level, format, ...) \
     do { \
