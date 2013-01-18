@@ -3,6 +3,9 @@
 
 #include "defs.h"
 
+// prefix of log file
+#define LIBLOG_PREFIX "log"
+
 // define log levels
 #define LEVEL_POS       0
 #define LEVEL_LEN       3

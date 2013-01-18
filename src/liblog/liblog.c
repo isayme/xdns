@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <stdarg.h>
 #include <time.h>
 #include <limits.h>
@@ -34,7 +35,7 @@ static INT32 log_init()
         memset((void*)log_file_name,0x00,PATH_MAX);
         time( &log_t);
         localtime_r(&log_t, &log_tm);
-        sprintf(log_file_name, "zthfs-%04d-%02d-%02d-%02d-%02d-%02d.log", log_tm.tm_year+1900,
+        sprintf(log_file_name, LIBLOG_PREFIX"-%04d-%02d-%02d-%02d-%02d-%02d.log", log_tm.tm_year+1900,
                 log_tm.tm_mon + 1, log_tm.tm_mday, log_tm.tm_hour, log_tm.tm_min, log_tm.tm_sec);
         
         g_logfile = fopen(log_file_name, "a");
@@ -46,7 +47,8 @@ static INT32 log_init()
         else
         {
             CS_INIT(&g_log_cs);
-            PRINTF(LEVEL_INFORM, "open log file %s ok.\n", log_file_name);
+            printf("\r");
+            PRINTF(LEVEL_INFORM | COLOR_GREEN, "open log file %s ok.\n", log_file_name);
         }
     }
     
@@ -79,7 +81,7 @@ INT32 PRINTF(UINT64 mode, char *format, ...)
     CS_ENTER(&g_log_cs);
     
     // show different color for shell console
-    if (stdout->_IO_file_flags & _IO_LINE_BUF)
+    if (1 == isatty(STDOUT_FILENO))
     {
         INT8 color = (INT8)((mode & COLOR_MASK) >> COLOR_POS);
         if (0 == color) color = 9;
@@ -94,14 +96,14 @@ INT32 PRINTF(UINT64 mode, char *format, ...)
         time_t t = time(NULL);
 
         localtime_r(&t, &ptm);
-        strftime(cur_time, 128, "[%H:%M:%S %Y-%m-%d]",&ptm);
+        strftime(cur_time, 128, "[%H:%M:%S %Y-%m-%d] ",&ptm);
         fprintf(stdout, "%s", cur_time);
         fprintf(g_logfile, "%s", cur_time);
     }
     
     // show debug level info
-    fprintf(g_logfile, "[%s]", g_debug_str[dlevel >> LEVEL_POS]);
-    fprintf(stdout, "[%s]", g_debug_str[dlevel >> LEVEL_POS]); 
+    fprintf(g_logfile, "[%s] ", g_debug_str[dlevel >> LEVEL_POS]);
+    fprintf(stdout, "[%s] ", g_debug_str[dlevel >> LEVEL_POS]); 
     
     va_start(arg, format);
     vfprintf(stdout, format, arg);
@@ -110,7 +112,7 @@ INT32 PRINTF(UINT64 mode, char *format, ...)
     vfprintf(g_logfile, format, arg);
     va_end(arg);
     
-    if (stdout->_IO_file_flags & _IO_LINE_BUF)
+    if (1 == isatty(STDOUT_FILENO))
     {
         fprintf(stdout, "\033[0m");
     }
