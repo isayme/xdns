@@ -1,6 +1,7 @@
 #ifndef _THREAD_H
 #define _THREAD_H
 
+#define __USE_GNU 
 #include <pthread.h>
 #include "defs.h"
 
