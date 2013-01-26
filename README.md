@@ -18,4 +18,4 @@ For socket communication using UDP protocol.
 Thread pool.
 # Contact #
 Email : isaymeorg [at] gmail [dot] com  
-Blog  : [www.isayme.org](http://www.isayme.org "www.isayme.org") [Chinese Simplified]
+Blog  : [www.isayme.org](www.isayme.org "www.isayme.org") [Chinese Simplified]
