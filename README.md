@@ -16,4 +16,4 @@ Double list, code mainly from linux kernel.
 For socket communication using UDP protocol.
 # Contact #
 Email : isaymeorg [at] gmail [dot] com  
-Blog  : [www.isayme.org](www.isayme.org "www.isayme.org") [Chinese Simplified]
+Blog  : [www.isayme.org](http://www.isayme.org "www.isayme.org") [Chinese Simplified]
