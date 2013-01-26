@@ -20,9 +20,10 @@ static const UINT8 g_debug_str[8][8] = {
     "UNDEF",
 };
 
-static CS_T g_log_cs;
+static CS_T g_log_cs = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
 static FILE *g_logfile = NULL;
-static UINT8 g_dlevel = 1;
+static UINT64 g_dlevel = LEVEL_INFORM;
+//static UINT64 g_dlevel = LEVEL_DEBUG;
 
 static INT32 log_init()
 {
@@ -46,7 +47,6 @@ static INT32 log_init()
         }
         else
         {
-            CS_INIT(&g_log_cs);
             printf("\r");
             PRINTF(LEVEL_INFORM | COLOR_GREEN, "open log file %s ok.\n", log_file_name);
         }
@@ -60,7 +60,22 @@ INT32 PRINTF(UINT64 mode, char *format, ...)
     INT8        str[1024] = {0};
     UINT64      dlevel = -1;
     va_list     arg;
+
+    dlevel = mode & LEVEL_MASK;
+      
+    if (g_dlevel > dlevel)
+    {
+        return R_OK;
+    }
     
+    if (LEVEL_ERROR == dlevel)
+    {
+        mode &= COLOR_MASK;
+        mode |= COLOR_RED;
+    }
+
+    CS_ENTER(&g_log_cs);
+
     // ensure logfile has been opened
     if (NULL == g_logfile)
     {
@@ -70,15 +85,6 @@ INT32 PRINTF(UINT64 mode, char *format, ...)
             return R_ERROR;
         }
     }
-    
-    dlevel = mode & LEVEL_MASK;
-    if (LEVEL_ERROR == dlevel)
-    {
-        mode &= COLOR_MASK;
-        mode |= COLOR_RED;
-    }
-        
-    CS_ENTER(&g_log_cs);
     
     // show different color for shell console
     if (1 == isatty(STDOUT_FILENO))

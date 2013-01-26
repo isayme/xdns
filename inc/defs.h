@@ -23,6 +23,9 @@ typedef unsigned long long  UINT64;
 #define  MAX(a,b)	(((a)>(b))?(a):(b))
 #define  MIN(a,b)	(((a)<(b))?(a):(b))
 
+#define likely(x)   __builtin_expect(!!(x), 1)
+#define unlikely(x) __builtin_expect(!!(x), 0)
+
 #define _perror() printf("%s : args error.\n", __func__)
 #define dprintf(msg...) do{printf("%s[%d] : ", __func__, __LINE__);printf(msg);}while(0)
 
