@@ -16,6 +16,8 @@ Double list, code mainly from linux kernel.
 For socket communication using UDP protocol.
 ## libthreadpool ##
 Thread pool.
+## libconfig ##
+config file read library.
 # Contact #
 Email : isaymeorg [at] gmail [dot] com  
 Blog  : [www.isayme.org](http://www.isayme.org "www.isayme.org") [Chinese Simplified]

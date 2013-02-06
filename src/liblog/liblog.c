@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <unistd.h>
 #include <stdarg.h>
 #include <time.h>
 #include <limits.h>
@@ -36,8 +35,8 @@ static INT32 log_init()
         memset((void*)log_file_name,0x00,PATH_MAX);
         time( &log_t);
         localtime_r(&log_t, &log_tm);
-        sprintf(log_file_name, LIBLOG_PREFIX"-%04d-%02d-%02d-%02d-%02d-%02d.log", log_tm.tm_year+1900,
-                log_tm.tm_mon + 1, log_tm.tm_mday, log_tm.tm_hour, log_tm.tm_min, log_tm.tm_sec);
+        sprintf(log_file_name, LIBLOG_PREFIX"-%04d-%02d-%02d-%02d-%02d.log", log_tm.tm_year+1900,
+                log_tm.tm_mon + 1, log_tm.tm_mday, log_tm.tm_hour, log_tm.tm_min);
         
         g_logfile = fopen(log_file_name, "a");
         
@@ -53,6 +52,11 @@ static INT32 log_init()
     }
     
     return R_OK;
+}
+
+INT32 liblog_level(UINT64 level)
+{
+    g_dlevel = level & LEVEL_MASK;
 }
 
 INT32 PRINTF(UINT64 mode, char *format, ...)
