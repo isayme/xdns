@@ -55,4 +55,6 @@
 
 INT32 PRINTF(UINT64 mode, char *format, ...);
 
+INT32 liblog_level(UINT64 level);
+
 #endif

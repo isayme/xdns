@@ -11,7 +11,8 @@ BINS := test
 
 # libs to be created
 LIBS := liblog.so libthread.so libbm.so \
-	liblist.so libudp.so libdaemon.so libthreadpool.so
+	liblist.so libudp.so libdaemon.so libthreadpool.so \
+	libconfig.so
 #-----------------------------------------------------------
 
 # compiler tool
@@ -27,7 +28,7 @@ SOFLAGS := -g -DLINUX -shared -fPIC -Iinc
 LDFLAGS := -Wl,-rpath,bin,-rpath, \
   -Lbin \
 	-lpthread -llog -lthread -ldaemon -lbm \
-	-llist -ludp -lthreadpool
+	-llist -ludp -lthreadpool -lconfig
 	
 # vpath indicate the searching path of the according file type
 SRCDIR := src $(shell ls -d src/*)
