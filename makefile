@@ -56,11 +56,11 @@ clean :
 # common rules goes here, if the compiling procedure of your module matches one, 
 # no need to list it in SpecialRules
 %.so : %.c
-	$(CC) $(SOFLAGS) -o $@ $^
+	$(CC) $^ $(SOFLAGS) -o $@
 	mv $@ bin/
 
 % : %.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $@
 	mv $@ bin/
 		
 #-----------------------------------------------------------
