@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
 #include <time.h>
@@ -64,7 +65,7 @@ static INT32 log_init()
         
         time( &log_t);
         localtime_r(&log_t, &log_tm);
-        snprintf(log_file_path, PATH_MAX, "%s/"LOG_PREFIX"-%04d-%02d-%02d-%02d-%02d.log", tmp, 
+        snprintf(log_file_path, PATH_MAX, "%s/"LIBLOG_PREFIX"-%04d-%02d-%02d-%02d-%02d.log", tmp, 
             log_tm.tm_year+1900, log_tm.tm_mon + 1, log_tm.tm_mday, log_tm.tm_hour, log_tm.tm_min);
         
         g_logfile = fopen(log_file_path, "a");
