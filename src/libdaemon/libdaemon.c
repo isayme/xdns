@@ -28,10 +28,10 @@ int daemonize(void)
     }
     
     /* Change the current working directory */
-    if ((chdir("/")) < 0) {
+    //if ((chdir("/")) < 0) {
             /* Log any failure here */
-            exit(EXIT_FAILURE);
-    }
+    //        exit(EXIT_FAILURE);
+    //}
     
     /* Close out the standard file descriptors */
     close(STDIN_FILENO);

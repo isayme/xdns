@@ -87,7 +87,7 @@ int udp_uninit()
     return R_OK;
 }
 
-int udp_reply(struct sockaddr addr, UINT8 *buff, UINT16 blen)
+int udp_reply(struct sockaddr addr, char *buff, int blen)
 {
     int cnt;
 
@@ -108,7 +108,7 @@ int udp_reply(struct sockaddr addr, UINT8 *buff, UINT16 blen)
     return cnt;
 }
 
-int udp_send(UINT8 *dip, UINT16 dport, UINT8 *buff, UINT16 blen)
+int udp_send(UINT8 *dip, UINT16 dport, char *buff, int blen)
 {
     struct sockaddr_in addr;
     int cnt;

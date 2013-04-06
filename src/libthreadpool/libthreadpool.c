@@ -10,13 +10,13 @@ static void *tp_wrapper_fn(void * arg)
     tp_worker_t *thread = (tp_worker_t *)arg;
     thread_pool_t *pool = thread->parent;
     
-    PRINTF(LEVEL_DEBUG, "%s %d start.\n", __func__, thread->tid);
+    PRINTF(LEVEL_TEST, "%s %d start.\n", __func__, thread->tid);
 
     while (1)
     {
         pthread_mutex_lock(&thread->lock);
         pthread_cond_wait(&thread->cond, &thread->lock);
-        PRINTF(LEVEL_DEBUG, "thread pool thread[%d] deal job.\n", thread->id);
+        PRINTF(LEVEL_TEST, "thread pool thread[%d] deal job.\n", thread->id);
         
         thread->func(thread->arg);
         pthread_mutex_unlock(&thread->lock);
@@ -30,7 +30,7 @@ static void *tp_wrapper_fn(void * arg)
     }
     
     
-    PRINTF(LEVEL_DEBUG, "%s %d exit.\n", __func__, thread->tid);
+    PRINTF(LEVEL_TEST, "%s %d exit.\n", __func__, thread->tid);
     pthread_exit(0);
 }
 
@@ -71,18 +71,19 @@ thread_pool_t *tp_create(int t_num)
             tp->t_worker[i].next = &tp->t_worker[i+1];
         } 
     }
-    
+
     for (i = 0; i < (t_num + 1); i++)
     {
         pthread_mutex_init(&tp->t_worker[i].lock, NULL);
         pthread_cond_init(&tp->t_worker[i].cond, NULL);
         tp->t_worker[i].parent = tp;
         tp->t_worker[i].id = i;
-        
+
         if( 0 != pthread_create(&tp->t_worker[i].tid, NULL, tp_wrapper_fn, &tp->t_worker[i]))    
-		{
-		    goto _err;
-		}
+        {
+            goto _err;
+        }
+        
 		th_create++;
     }
 
@@ -142,7 +143,7 @@ INT32 tp_add_task(thread_pool_t *tp, tp_func fn, void *arg)
     pthread_mutex_unlock(&worker->lock);
     
     
-    PRINTF(LEVEL_DEBUG, "thread_pool add a job ok.\n");
+    PRINTF(LEVEL_TEST, "thread_pool add a job ok.\n");
     return R_OK;
 }
 

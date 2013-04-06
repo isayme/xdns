@@ -14,6 +14,8 @@
 // user work function define
 typedef void (*tp_func)(void *);
 
+#pragma pack(1)
+
 typedef struct tp_worker_s tp_worker_t;
 
 typedef struct thread_pool_s {
@@ -38,6 +40,8 @@ struct tp_worker_s {
     UINT8 flags;                // not use
     struct tp_worker_s *next;   // pointer to next idle thread
 };
+
+#pragma pack()
 
 thread_pool_t *tp_create(int t_num);
 

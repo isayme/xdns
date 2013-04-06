@@ -7,12 +7,12 @@
 # to use this makefile, generally change variables below
 #-----------------------------------------------------------
 # binarys to be created
-BINS := test
+BINS := test xdns
 
 # libs to be created
 LIBS := liblog.so libthread.so libbm.so \
 	liblist.so libudp.so libdaemon.so libthreadpool.so \
-	libconfig.so
+	libconfig.so libmm.so
 #-----------------------------------------------------------
 
 # compiler tool
@@ -28,7 +28,7 @@ SOFLAGS := -g -DLINUX -shared -fPIC -Iinc
 LDFLAGS := -Wl,-rpath,bin,-rpath, \
   -Lbin \
 	-lpthread -llog -lthread -ldaemon -lbm \
-	-llist -ludp -lthreadpool -lconfig
+	-llist -ludp -lthreadpool -lconfig -lmm
 	
 # vpath indicate the searching path of the according file type
 SRCDIR := src $(shell ls -d src/*)
@@ -75,4 +75,7 @@ clean :
 #	mv $@ bin/
 #-----------------------------------------------------------
 
+xdns : xdns.c
+	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $@
+	mv $@ bin/
 

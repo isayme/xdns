@@ -31,7 +31,7 @@ INT32 get_cfg_from_file(char *key, char *value, INT32 value_len, char *cfg_path)
     }
 
     while ((read = getline(&line, &len, fp)) != -1) {
-        PRINTF(LEVEL_DEBUG, "%d:[%s]\n", read, line);
+        PRINTF(LEVEL_TEST, "%d:[%s]\n", read, line);
 
         real_line = line;
 
@@ -74,7 +74,7 @@ INT32 get_cfg_from_file(char *key, char *value, INT32 value_len, char *cfg_path)
         strncpy(value, tmp, real_line - tmp);
         value[real_line - tmp] = '\0';
 
-        PRINTF(LEVEL_DEBUG, "key:%s\tvalue:%s\n", key, value);
+        PRINTF(LEVEL_TEST, "key:%s\tvalue:%s\n", key, value);
         fclose(fp);
         if (line)
             free(line);

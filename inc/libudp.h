@@ -19,7 +19,7 @@ typedef struct{
 
 int udp_init(UINT16 port, void *func);
 int udp_uninit();
-int udp_reply(struct sockaddr addr, UINT8 *buff, UINT16 blen);
-int udp_send(UINT8 *dip, UINT16 dport, UINT8 *buff, UINT16 blen);
+int udp_reply(struct sockaddr addr, char *buff, int blen);
+int udp_send(UINT8 *dip, UINT16 dport, char *buff, int blen);
 
 #endif

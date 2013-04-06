@@ -173,11 +173,13 @@ INT32 liblog_log(UINT64 mode, char *format, ...)
         strftime(cur_time, 128, "[%H:%M:%S %Y-%m-%d] ",&ptm);
         fprintf(stdout, "%s", cur_time);
         fprintf(g_logfile, "%s", cur_time);
-    }
     
-    // show debug level info
-    fprintf(g_logfile, "[%s] ", g_debug_str[dlevel >> LEVEL_POS]);
-    fprintf(stdout, "[%s] ", g_debug_str[dlevel >> LEVEL_POS]); 
+    
+        // show debug level info
+        fprintf(g_logfile, "[%s] ", g_debug_str[dlevel >> LEVEL_POS]);
+        fprintf(stdout, "[%s] ", g_debug_str[dlevel >> LEVEL_POS]); 
+
+    }
     
     va_start(arg, format);
     vfprintf(stdout, format, arg);
