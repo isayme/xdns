@@ -199,7 +199,7 @@ static void xdns_tp_func(void *arg)
     static int dns_idx = 0; 
 
     if (0 == tp_arg->sockfd) {
-        PRINTF("sock init.\n");
+        PRINTF(LEVEL_DEBUG, "sock init.\n");
         if ((tp_arg->sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
                 PRINTF(LEVEL_DEBUG, "socket error [%d]\n", errno);
                 goto _err;
