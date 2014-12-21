@@ -39,26 +39,18 @@ static INT32 log_init()
     struct tm log_tm = {0};
     UINT8 *tmp;
     
-    if (NULL == g_logfile)
-    {
+    if (NULL == g_logfile) {
         log_path = malloc(PATH_MAX);
-        if (NULL == log_path)
-        {
-            goto _err;
-        }
+        if (NULL == log_path) goto _err;
+
         log_file_path = malloc(PATH_MAX);
-        if (NULL == log_file_path)
-        {
-            goto _err;
-        }
+        if (NULL == log_file_path) goto _err;
 
         memset((void*)log_path, 0x00, PATH_MAX);
         memset((void*)log_file_path, 0x00, PATH_MAX);
         
-        if (-1 == readlink("/proc/self/exe", log_path, PATH_MAX))
-        {
-            goto _err;
-        }    
+        if (-1 == readlink("/proc/self/exe", log_path, PATH_MAX)) goto _err;
+
         tmp = dirname(log_path);
 
         snprintf(log_file_path, PATH_MAX, "%s/%s", tmp, log_file_path);
@@ -70,36 +62,22 @@ static INT32 log_init()
         
         g_logfile = fopen(log_file_path, "a");
         
-        if (NULL == g_logfile)
-        {
+        if (NULL == g_logfile) {
             goto _err;
-        }
-        else
-        {
+        } else {
             printf("\r");
             liblog_log(LEVEL_DEBUG | COLOR_GREEN, "open log file %s ok.\n", log_file_path);
         }
     }
     
-        if (NULL != log_file_path)
-    {
-        free(log_file_path);
-    }
-    if (NULL != log_path)
-    {
-        free(log_path);
-    }
-    return R_OK;
+    if (NULL != log_file_path) free(log_file_path);
+    if (NULL != log_path) free(log_path);
+    return 0;
+
 _err:
-    if (NULL != log_file_path)
-    {
-        free(log_file_path);
-    }
-    if (NULL != log_path)
-    {
-        free(log_path);
-    }
-    return R_ERROR;
+    if (NULL != log_file_path) free(log_file_path);
+    if (NULL != log_path) free(log_path);
+    return -1;
 }
 
 INT32 liblog_level(UINT64 level)
@@ -130,13 +108,9 @@ INT32 liblog_log(UINT64 mode, char *format, ...)
 
     dlevel = mode & LEVEL_MASK;
       
-    if (g_dlevel > dlevel)
-    {
-        return R_OK;
-    }
+    if (g_dlevel > dlevel) return 0;
     
-    if (LEVEL_ERROR == dlevel)
-    {
+    if (LEVEL_ERROR == dlevel) {
         mode &= COLOR_MASK;
         mode |= COLOR_RED;
     }
@@ -144,27 +118,23 @@ INT32 liblog_log(UINT64 mode, char *format, ...)
     CS_ENTER(&g_log_cs);
 
     // ensure logfile has been opened
-    if (NULL == g_logfile)
-    {
-        if (R_ERROR == log_init())
-        {
+    if (NULL == g_logfile) {
+        if (-1 == log_init()) {
             printf("init log file error\n");
             CS_LEAVE(&g_log_cs);
-            return R_ERROR;
+            return -1;
         }
     }
     
     // show different color for shell console
-    if (1 == isatty(STDOUT_FILENO))
-    {
+    if (1 == isatty(STDOUT_FILENO)) {
         INT8 color = (INT8)((mode & COLOR_MASK) >> COLOR_POS);
         if (0 == color) color = 9;
         fprintf(stdout, "\033[%d;49;%dm", (INT8)((mode & TEXT_MASK) >> TEXT_POS), 30 + color);
     }
 
     // show time
-    if (TIME_SHOW == (mode & TIME_MASK))
-    {
+    if (TIME_SHOW == (mode & TIME_MASK)) {
         INT8 cur_time[128];
         struct tm ptm = {0};
         time_t t = time(NULL);
@@ -188,8 +158,7 @@ INT32 liblog_log(UINT64 mode, char *format, ...)
     vfprintf(g_logfile, format, arg);
     va_end(arg);
     
-    if (1 == isatty(STDOUT_FILENO))
-    {
+    if (1 == isatty(STDOUT_FILENO)) {
         fprintf(stdout, "\033[0m");
     }
     

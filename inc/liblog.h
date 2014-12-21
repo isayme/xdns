@@ -4,7 +4,7 @@
 #include "defs.h"
 
 // prefix of log file
-#define LIBLOG_PREFIX "log"
+#define LIBLOG_PREFIX   "xdns"
 
 // define log levels
 #define LEVEL_POS       0

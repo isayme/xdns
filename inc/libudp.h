@@ -11,11 +11,11 @@ typedef int (*CALLBACK)(struct sockaddr addr, char *buff, int blen);
 
 enum {STATE_UNINIT, STATE_RUN, STATE_STOP};
 
-typedef struct{
+typedef struct {
     int sockfd;
     int state;
     CALLBACK func;
-}SOCK_INFO;
+} SOCK_INFO;
 
 int udp_init(UINT16 port, void *func);
 int udp_uninit();

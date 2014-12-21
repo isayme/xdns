@@ -39,8 +39,7 @@ buf_ctrl_t *buf_create(INT32 blk_cnt, INT32 blk_size)
     buf->head = 0;
     buf->tail = blk_cnt;
 
-    for(i=0;i<blk_cnt;i++)
-    {
+    for(i=0;i<blk_cnt;i++) {
         *(buf_ctrl_t**)(buf->buf+i*buf->buf_unit) = NULL;
         buf->que[i] = i;
     }
@@ -114,7 +113,7 @@ INT32 buf_ret(UINT8* blk)
         tt = 0;
     if (tt == buf->head) {
         CS_LEAVE(&buf->cs);
-        return R_ERROR;
+        return -1;
     } else {
         *(buf->que+buf->tail) = idx;
         buf->tail = tt;

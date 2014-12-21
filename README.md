@@ -28,4 +28,4 @@ GFW的手段之一就是**DNS污染**，DNS污染的原理是：DNS默认是UDP�
 
 # 联系我 #
 邮件 : isaymeorg [at] gmail [dot] com  
-博客 : [www.isayme.org](www.isayme.org "www.isayme.org") [Chinese Simplified]
+博客 : [www.isayme.org](http://www.isayme.org "www.isayme.org") [Chinese Simplified]
