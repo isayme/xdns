@@ -7,11 +7,11 @@
 # to use this makefile, generally change variables below
 #-----------------------------------------------------------
 # binarys to be created
-BINS := test xdns
+BINS := xdns
 
 # libs to be created
-LIBS := liblog.so libthread.so libbm.so \
-	liblist.so libudp.so libdaemon.so libthreadpool.so \
+LIBS := liblog.so libthread.so \
+	libudp.so libdaemon.so libthreadpool.so \
 	libconfig.so libmm.so
 #-----------------------------------------------------------
 
